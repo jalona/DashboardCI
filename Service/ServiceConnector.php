@@ -5,6 +5,7 @@ namespace MB\DashboardBundle\Service;
 
 use MB\DashboardBundle\Model\Connector\GitlabConnector;
 use MB\DashboardBundle\Model\Connector\IConnector;
+use MB\DashboardBundle\Model\Connector\GithubConnector;
 
 class ServiceConnector
 {
@@ -35,6 +36,8 @@ class ServiceConnector
             case 'gitlab':
                 $this->connections[$name] = new GitlabConnector($name, $connection['host'], $connection['api_token']);
                 break;
+            case 'github':
+                $this->connections[$name] = new GithubConnector($name, $connection['host'], $connection['api_token']);
             case 'stash':
                 break;
             case 'gitlab-ci':

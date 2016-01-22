@@ -11,7 +11,7 @@ The actual list of supported tools is:
 | Code hosting | Status      |
 |--------------|-------------|
 | GitLab       | Working on  |
-| GitHub       | Coming soon |
+| GitHub       | Working on  |
 | Stash        | Coming soon |
 
 | Continuous integration | Status      |
@@ -32,7 +32,7 @@ mb_dashboard:
 
         # code hosting
         local_projects: { type: 'gitlab', host: 'https://my-super-gitlab.com', api_token: 'abcd1234' }
-        public_projects: { type: 'github', api_token: '1234abcd' }
+        public_projects: { type: 'github', host: 'https://api.github.com', api_token: '1234abcd' }
         old_projects: { type: 'gitlab', host: 'https://my-old-gitlab.com' api_token: 'another_token' }
         private_projects: { type: 'stash', host: 'https://my-super-stash.com' api_username: 'my_username', api_password: 'my_password' }
 
