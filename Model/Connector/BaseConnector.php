@@ -9,6 +9,13 @@ abstract class BaseConnector implements IConnector
 
     protected $host;
     protected $ch;
+    protected $paramsGet;
+    protected $paramsPost;
+
+    public function __construct()
+    {
+        $this->init();
+    }
 
     /**
      * (non-PHPdoc)
@@ -17,6 +24,12 @@ abstract class BaseConnector implements IConnector
     public function getName()
     {
         return $this->name;
+    }
+
+    public function init()
+    {
+        $this->paramsGet = array();
+        $this->paramsPost = array();
     }
 
     /**
@@ -29,9 +42,17 @@ abstract class BaseConnector implements IConnector
     protected function prepareQuery($target = null)
     {
         $this->ch = curl_init();
-        curl_setopt($this->ch, CURLOPT_URL, $this->host . $target);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
         $this->addAuthentication();
+
+        if (!empty($this->paramsGet)) {
+            $target = $target . '?' . http_build_query($this->paramsGet);
+        }
+
+        curl_setopt($this->ch, CURLOPT_URL, $this->host . $target);
+        if (!empty($this->paramsPost)) {
+            curl_setopt($this->ch, CURLOPT_POSTFIELDS, http_build_query($this->paramsPost));
+        }
     }
 
     /**
@@ -41,8 +62,10 @@ abstract class BaseConnector implements IConnector
     public function execute($target = null)
     {
         $this->prepareQuery($target);
+
         $result = curl_exec($this->ch);
         curl_close($this->ch);
+        $this->init();
         return $result;
     }
 
