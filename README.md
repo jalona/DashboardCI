@@ -12,13 +12,13 @@ The actual list of supported tools is:
 |--------------|-------------|
 | GitLab       | Working on  |
 | GitHub       | Coming soon |
-| Stash        | Working on  |
+| Stash        | Coming soon |
 
 | Continuous integration | Status      |
 |------------------------|-------------|
 | GitLab-CI              | Coming soon |
 | Bamboo                 | Coming soon |
-|Jenkins                 | Coming soon |
+| Jenkins                | Coming soon |
 
 ## Features
 ### 1. Multi sources
@@ -47,15 +47,17 @@ The DashboardBundle is able to communicate with all the tools listed previously,
 Example :
 
 ```PHP
-$connections = $this->get('mb_dashboard.connections');
-$projects = $connections->getAllProjects();
+/* @var $manager \MB\DashboardBundle\Manager\ProjectManager */
+$manager = $this->get('mb_dashboard.project_manager');
+
+$project = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->find(1);
+
+$manager->refresh($project);
 ```
 
-What will contains ```$projects``` ? The projects from GitHub ? From Stash ? The response is: All available, from all configured sources.
+As simple as this. You don't have to care which api to use. We do it ourself internally. Just use the functions provided by the ```MB\DashboardBundle\Model\Connector\IConnector``` interface and rock your dashboard !
 
-You see ? You don't have to care about the remote tools.
-
-### 3. Hooks
+### 3. Hooks (coming soon)
 If you don't want the run a synchronizing task which will perform a lot of queries on the remote tools, you can configure hooks on these services to update the dashboard in live.
 
 Just configure the webhooks on the tools to call one of these URLs:
@@ -67,24 +69,29 @@ Just configure the webhooks on the tools to call one of these URLs:
 - /api/bamboo
 - /api/jenkins
 
-## 4. Actions
+## 4. Actions (coming soon)
 The Dashboard bundle does not only read information from remote tools, but it can interact with them too.
 
 Examples:
 
 ```PHP
-$connections = $this->get('mb_dashboard.connections');
+/* @var $manager \MB\DashboardBundle\Manager\ProjectManager */
+$manager = $this->get('mb_dashboard.project_manager');
+
 $project = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->find(1);
 
 // Run the test units on the remote tool (eg: GitLab-CI)
-$connections->performBuild($project);
+$manager->performBuild($project);
 ```
 
 ```PHP
-$connections = $this->get('mb_dashboard.connections');
+/* @var $manager \MB\DashboardBundle\Manager\ProjectManager */
+$manager = $this->get('mb_dashboard.project_manager');
+
 $project = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->find(1);
 
 // Deploy the project from the remote tool to the selected deployment target (eg: Bamboo)
 $deployments = $project->getDeploymentTargets();
-$connections->deploy($project, $deployments['staging']);
+
+$manager->deploy($project, $deployments['staging']);
 ```

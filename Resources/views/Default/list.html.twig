@@ -1,0 +1,22 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th>Project</th>
+					<th>url</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for project in projects %}
+					<tr>
+						<td>{{ project.sourceTitle }}</td>
+						<td><a href="{{ project.sourceUrl }}" target="_blank">{{ project.sourceUrl }}</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>

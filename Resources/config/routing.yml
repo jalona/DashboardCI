@@ -1,0 +1,12 @@
+mb_dashboard_index:
+    path:     /
+    defaults: { _controller: "MBDashboardBundle:Default:index" }
+
+mb_dashboard_import:
+    path:     /import
+    defaults: { _controller: "MBDashboardBundle:Default:import" }
+
+mb_dashboard_list:
+    path:     /list
+    defaults: { _controller: "MBDashboardBundle:Default:list" }
+    
