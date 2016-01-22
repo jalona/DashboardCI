@@ -26,7 +26,7 @@ class DefaultController extends Controller
     {
         $repo = $this->getDoctrine()->getRepository('MBDashboardBundle:Project');
 
-        $projects = $repo->findAll();
+        $projects = $repo->findBy(array(), array('sourceConnectorIdentifier' => 'ASC'));
 
         return $this->render('MBDashboardBundle:Default:list.html.twig', array('projects' => $projects));
     }

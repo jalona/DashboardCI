@@ -10,7 +10,14 @@
 				</tr>
 			</thead>
 			<tbody>
+				{% set connector = null %}
 				{% for project in projects %}
+					{% if project.sourceConnectorIdentifier != connector %}
+						{% set connector = project.sourceConnectorIdentifier %}
+						<tr>
+							<td colspan="2">{{ connector }}</td>
+						</tr>
+					{% endif %}
 					<tr>
 						<td>{{ project.sourceTitle }}</td>
 						<td><a href="{{ project.sourceUrl }}" target="_blank">{{ project.sourceUrl }}</a></td>
