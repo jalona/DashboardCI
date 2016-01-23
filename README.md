@@ -1,4 +1,5 @@
 /!\ UNDER DEVELOPMENT /!\
+
 /!\ DO NOT USE THIS PROJECT /!\
 
 # MB/Dashboard
@@ -8,17 +9,17 @@ MBDashboard is a Symfony 3 bundle which provide integration and communication wi
 
 The actual list of supported tools is:
 
-| Code hosting | Status      |
-|--------------|-------------|
-| GitLab       | Working on  |
-| GitHub       | Working on  |
-| Stash        | Coming soon |
+| Code hosting | Status      | Configuration key |
+|--------------|-------------|-------------------|
+| GitLab       | Working on  | gitlab            |
+| GitHub       | Working on  | github            |
+| Stash        | Working on  | stash             |
 
-| Continuous integration | Status      |
-|------------------------|-------------|
-| GitLab-CI              | Coming soon |
-| Bamboo                 | Coming soon |
-| Jenkins                | Coming soon |
+| Continuous integration | Status      | Configuration key |
+|------------------------|-------------|-------------------|
+| GitLab-CI              | Coming soon | gitlabci          |
+| Bamboo                 | Coming soon | bamboo            |
+| Jenkins                | Coming soon | jenkins           |
 
 ## Features
 ### 1. Multi sources
@@ -31,14 +32,13 @@ mb_dashboard:
     connections:
 
         # code hosting
-        local_projects: { type: 'gitlab', host: 'https://my-super-gitlab.com', api_token: 'abcd1234' }
-        public_projects: { type: 'github', host: 'https://api.github.com', api_token: '1234abcd' }
-        old_projects: { type: 'gitlab', host: 'https://my-old-gitlab.com' api_token: 'another_token' }
-        private_projects: { type: 'stash', host: 'https://my-super-stash.com' api_username: 'my_username', api_password: 'my_password' }
+        my_gitlab:    { type: 'gitlab',   host: 'https://my-gitlab.com',   api_token: 'abcd1234' }
+        my_github:    { type: 'github',   host: 'https://api.github.com',  api_token: '1234abcd' }
+        my_stash:     { type: 'stash',    host: 'https://my-stash.com'     api_username: 'my_username', api_password: 'my_password' }
 
         # continuous integration
-        local_ci: { type: 'gitlabci', host: 'https://my-super-gitlab-ci.com', api_token: '1a2b3c4d' }
-        private_ci: { type: 'bamboo', host: 'https://my-super-bamboo.com', api_username: 'my_username', api_password: 'my_password' }
+        my_gitlab_ci: { type: 'gitlabci', host: 'https://my-gitlabci.com', api_token: '1a2b3c4d' }
+        my_bamboo:    { type: 'bamboo',   host: 'https://my-bamboo.com',   api_username: 'my_username', api_password: 'my_password' }
 ```
 
 ### 2. API
@@ -55,7 +55,7 @@ $project = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->fin
 $manager->refresh($project);
 ```
 
-As simple as this. You don't have to care which api to use. We do it ourself internally. Just use the functions provided by the ```MB\DashboardBundle\Model\Connector\IConnector``` interface and rock your dashboard !
+As simple as this. You don't have to care which remote service is used or which url you should call. We do it ourself internally. Just use the functions provided by the ```MB\DashboardBundle\Model\Connector\IConnector``` interface and rock your dashboard !
 
 ### 3. Hooks (coming soon)
 If you don't want the run a synchronizing task which will perform a lot of queries on the remote tools, you can configure hooks on these services to update the dashboard in live.
