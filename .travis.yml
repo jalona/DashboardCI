@@ -8,8 +8,7 @@ php:
     - nightly
 
 before_script:
-    - cd $CI_HOME/project
-    - pwd
+    - sh ./travis.sh
     - composer install
 
 script: vendor/bin/phpunit ./Tests
