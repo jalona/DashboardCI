@@ -8,7 +8,7 @@ php:
     - nightly
 
 before_script:
-    - cd project
+    - cd $CI_HOME/project
     - pwd
     - composer install
 
