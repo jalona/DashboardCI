@@ -1,6 +1,10 @@
-/!\ UNDER DEVELOPMENT /!\
+__/!\ UNDER DEVELOPMENT /!\__
 
-/!\ DO NOT USE THIS PROJECT /!\
+__/!\ DO NOT USE THIS PROJECT /!\__
+
+No, seriously. This is not even an alpha version, so please, wait.
+
+---
 
 # MB/Dashboard
 
