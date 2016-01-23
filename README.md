@@ -35,6 +35,8 @@ Must have :
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8bb5c589-f848-453f-b319-da61176da107/big.png)](https://insight.sensiolabs.com/projects/8bb5c589-f848-453f-b319-da61176da107)
 
+[![Build Status](https://travis-ci.org/mb-webdev/DashboardCI.svg?branch=master)](https://travis-ci.org/mb-webdev/DashboardCI)
+
 ## Introduction
 MBDashboard is a Symfony 3 bundle which provide integration and communication with some famous development code hosting and continuous integration tools.
 
