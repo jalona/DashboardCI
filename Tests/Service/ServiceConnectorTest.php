@@ -3,6 +3,7 @@
 namespace MB\DashboardBundle\Tests\Service;
 
 use MB\DashboardBundle\Service\ServiceConnector;
+
 class ServiceConnectorTest extends \PHPUnit_Framework_TestCase
 {
 

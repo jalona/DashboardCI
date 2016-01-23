@@ -8,6 +8,8 @@ php:
     - nightly
 
 before_script:
+    - cd project
+    - pwd
     - composer install
 
 script: vendor/bin/phpunit ./Tests
