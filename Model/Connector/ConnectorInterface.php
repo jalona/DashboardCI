@@ -3,7 +3,8 @@
 namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Model\Project\ISourceProject;
-interface IConnector
+use MB\DashboardBundle\Model\Project\SourceProjectInterface;
+interface ConnectorInterface
 {
     /**
      * Return the name of the connector
@@ -44,5 +45,5 @@ interface IConnector
      *
      * @return ISourceProject
      */
-    public function fillProject(ISourceProject $project, \stdClass $data);
+    public function fillProject(SourceProjectInterface $project, \stdClass $data);
 }

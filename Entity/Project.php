@@ -3,7 +3,7 @@
 namespace MB\DashboardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use MB\DashboardBundle\Model\Project\IProject;
+use MB\DashboardBundle\Model\Project\ProjectInterface;
 
 /**
  * Project
@@ -11,7 +11,7 @@ use MB\DashboardBundle\Model\Project\IProject;
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="MB\DashboardBundle\Repository\ProjectRepository")
  */
-class Project implements IProject
+class Project implements ProjectInterface
 {
     /**
      * @var int
@@ -131,12 +131,12 @@ class Project implements IProject
     }
 
     /*
-     * Implementing \MB\DashboardBundle\Model\ISourceProject
+     * Implementing \MB\DashboardBundle\Model\Project\SourceProjectInterface
      */
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::setSourceId()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceId()
      */
     public function setSourceId($sourceId)
     {
@@ -147,7 +147,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::getSourceId()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceId()
      */
     public function getSourceId()
     {
@@ -156,7 +156,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::setSourceConnectorIdentifier()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceConnectorIdentifier()
      */
     public function setSourceConnectorIdentifier($sourceConnectorIdentifier)
     {
@@ -167,7 +167,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::getSourceConnectorIdentifier()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceConnectorIdentifier()
      */
     public function getSourceConnectorIdentifier()
     {
@@ -176,7 +176,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::setSourceUrl()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceUrl()
      */
     public function setSourceUrl($sourceUrl)
     {
@@ -187,7 +187,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::getSourceUrl()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceUrl()
      */
     public function getSourceUrl()
     {
@@ -196,7 +196,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::setSourceTitle()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceTitle()
      */
     public function setSourceTitle($sourceTitle)
     {
@@ -207,7 +207,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::getSourceTitle()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceTitle()
      */
     public function getSourceTitle()
     {
@@ -216,7 +216,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::setSourceDescription()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceDescription()
      */
     public function setSourceDescription($sourceDescription)
     {
@@ -227,7 +227,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ISourceProject::getSourceDescription()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceDescription()
      */
     public function getSourceDescription()
     {
@@ -236,12 +236,12 @@ class Project implements IProject
 
 
     /*
-     * Implementing \MB\DashboardBundle\Model\ICIProject
+     * Implementing \MB\DashboardBundle\Model\Project\CIProjectInterface
      */
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiId()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiId()
      */
     public function setCiId($ciId)
     {
@@ -252,7 +252,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiId()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiId()
      */
     public function getCiId()
     {
@@ -261,7 +261,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiConnectorIdentifier()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiConnectorIdentifier()
      */
     public function setCiConnectorIdentifier($ciConnectorIdentifier)
     {
@@ -272,7 +272,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiConnectorIdentifier()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiConnectorIdentifier()
      */
     public function getCiConnectorIdentifier()
     {
@@ -281,7 +281,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiUrl()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiUrl()
      */
     public function setCiUrl($ciUrl)
     {
@@ -292,7 +292,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiUrl()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiUrl()
      */
     public function getCiUrl()
     {
@@ -301,7 +301,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiBuildStatus()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiBuildStatus()
      */
     public function setCiBuildStatus($ciBuildStatus)
     {
@@ -312,7 +312,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiBuildStatus()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiBuildStatus()
      */
     public function getCiBuildStatus()
     {
@@ -321,7 +321,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiBuildMessage()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiBuildMessage()
      */
     public function setCiBuildMessage($ciBuildMessage)
     {
@@ -332,7 +332,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiBuildMessage()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiBuildMessage()
      */
     public function getCiBuildMessage()
     {
@@ -341,7 +341,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiDeployStatus()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiDeployStatus()
      */
     public function setCiDeployStatus($ciDeployStatus)
     {
@@ -352,7 +352,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiDeployStatus()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiDeployStatus()
      */
     public function getCiDeployStatus()
     {
@@ -361,7 +361,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiDeployMessage()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiDeployMessage()
      */
     public function setCiDeployMessage($ciDeployMessage)
     {
@@ -372,7 +372,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiDeployMessage()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiDeployMessage()
      */
     public function getCiDeployMessage()
     {
@@ -381,7 +381,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiTitle()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiTitle()
      */
     public function setCiTitle($ciTitle)
     {
@@ -392,7 +392,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiTitle()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiTitle()
      */
     public function getCiTitle()
     {
@@ -401,7 +401,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::setCiDescription()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::setCiDescription()
      */
     public function setCiDescription($ciDescription)
     {
@@ -412,7 +412,7 @@ class Project implements IProject
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\ICIProject::getCiDescription()
+     * @see \MB\DashboardBundle\Model\Project\CIProjectInterface::getCiDescription()
      */
     public function getCiDescription()
     {

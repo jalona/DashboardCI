@@ -56,7 +56,6 @@ class ProjectManager
                 $row = null;
                 $fieldId = null;
                 $connectorIdentifier = null;
-                $fieldTitle = null;
 
                 // Determine which fields we need to use to fetch a row from the DB (source VS CI)
                 if (in_array($connect->getName(), static::getSourceConnectorTypes())) {

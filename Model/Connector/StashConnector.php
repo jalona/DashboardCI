@@ -3,7 +3,7 @@
 namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Model\Connector\BaseConnector;
-use MB\DashboardBundle\Model\Project\ISourceProject;
+use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 
 class StashConnector extends BaseConnector
 {
@@ -90,9 +90,9 @@ class StashConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Connector\IConnector::fillProject()
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillProject()
      */
-    public function fillProject(ISourceProject $project, \stdClass $data)
+    public function fillProject(SourceProjectInterface $project, \stdClass $data)
     {
         $project->setSourceId($data->id);
         $project->setSourceConnectorIdentifier($this->getName());

@@ -4,7 +4,7 @@ namespace MB\DashboardBundle\Service;
 
 
 use MB\DashboardBundle\Model\Connector\GitlabConnector;
-use MB\DashboardBundle\Model\Connector\IConnector;
+use MB\DashboardBundle\Model\Connector\ConnectorInterface;
 use MB\DashboardBundle\Model\Connector\GithubConnector;
 use MB\DashboardBundle\Model\Connector\StashConnector;
 
@@ -58,7 +58,7 @@ class ServiceConnector
      * Return the connector with the given name
      *
      * @param string $name
-     * @return IConnector|NULL
+     * @return ConnectorInterface|NULL
      */
     public function getConnection($name)
     {

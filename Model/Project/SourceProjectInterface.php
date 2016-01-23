@@ -2,7 +2,7 @@
 
 namespace MB\DashboardBundle\Model\Project;
 
-interface ISourceProject
+interface SourceProjectInterface
 {
     /**
      * Set sourceId

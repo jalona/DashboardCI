@@ -3,7 +3,8 @@
 namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Exception\FunctionNotImplementedException;
-abstract class BaseConnector implements IConnector
+
+abstract class BaseConnector implements ConnectorInterface
 {
     protected $name;
 
@@ -19,7 +20,7 @@ abstract class BaseConnector implements IConnector
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Connector\IConnector::getName()
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getName()
      */
     public function getName()
     {
@@ -57,7 +58,7 @@ abstract class BaseConnector implements IConnector
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Connector\IConnector::execute()
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::execute()
      */
     public function execute($target = null)
     {
@@ -71,7 +72,7 @@ abstract class BaseConnector implements IConnector
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Connector\IConnector::importAllProjects()
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importAllProjects()
      */
     public function importAllProjects()
     {
@@ -80,7 +81,7 @@ abstract class BaseConnector implements IConnector
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Connector\IConnector::addAuthentication()
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::addAuthentication()
      */
     public function addAuthentication()
     {

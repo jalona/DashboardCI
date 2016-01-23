@@ -9,4 +9,3 @@ mb_dashboard_import:
 mb_dashboard_list:
     path:     /list
     defaults: { _controller: "MBDashboardBundle:Default:list" }
-    

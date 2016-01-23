@@ -2,14 +2,14 @@
 
 namespace MB\DashboardBundle\Model\Project;
 
-interface ICIProject
+interface CIProjectInterface
 {
     /**
      * Set ciId
      *
      * @param integer $ciId
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiId($ciId);
 
@@ -25,7 +25,7 @@ interface ICIProject
      *
      * @param string $ciConnectorIdentifier
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiConnectorIdentifier($ciConnectorIdentifier);
 
@@ -41,7 +41,7 @@ interface ICIProject
      *
      * @param string $ciUrl
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiUrl($ciUrl);
 
@@ -57,7 +57,7 @@ interface ICIProject
      *
      * @param boolean $ciBuildStatus
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiBuildStatus($ciBuildStatus);
 
@@ -73,7 +73,7 @@ interface ICIProject
      *
      * @param string $ciBuildMessage
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiBuildMessage($ciBuildMessage);
 
@@ -89,7 +89,7 @@ interface ICIProject
      *
      * @param boolean $ciDeployStatus
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiDeployStatus($ciDeployStatus);
 
@@ -105,7 +105,7 @@ interface ICIProject
      *
      * @param string $ciDeployMessage
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiDeployMessage($ciDeployMessage);
 
@@ -121,7 +121,7 @@ interface ICIProject
      *
      * @param string $ciTitle
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiTitle($ciTitle);
 
@@ -137,7 +137,7 @@ interface ICIProject
      *
      * @param string $ciDescription
      *
-     * @return ICIProject
+     * @return CIProjectInterface
      */
     public function setCiDescription($ciDescription);
 
