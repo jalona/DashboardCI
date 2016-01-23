@@ -4,6 +4,31 @@ __/!\ DO NOT USE THIS PROJECT /!\__
 
 No, seriously. This is not even an alpha version, so please, wait.
 
+TODO list :
+
+- Fully integration of GitHub
+- Test units for GitHub
+- Fully integration of GitLab
+- Test units for GitLab
+- Fully integration of stash
+- Test units for Stash
+- Fully inegration of GitLab-CI
+- Test units for GitLab-CI
+- Fully integration of Bamboo
+- Test units for Bamboo
+- Fully integration of Jenkins
+- Test units for Jenkins
+- Beautiful page for projects list
+- Beautiful page for projects managment
+- Beautiful page for project details
+
+Must have :
+
+- Integration with socket.io
+- permanent socket between front and socket.io
+- live update between SF and socket.io
+
+
 ---
 
 # MB/Dashboard
