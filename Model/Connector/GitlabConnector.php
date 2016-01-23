@@ -11,6 +11,8 @@ class GitlabConnector extends BaseConnector
 
     public function __construct($name, $host, $token)
     {
+        $this->type = 'gitlab';
+
         $this->name = $name;
         $this->host = $host;
         $this->token = $token;

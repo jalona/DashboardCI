@@ -7,6 +7,7 @@ use MB\DashboardBundle\Exception\FunctionNotImplementedException;
 abstract class BaseConnector implements ConnectorInterface
 {
     protected $name;
+    protected $type;
 
     protected $host;
     protected $ch;
@@ -25,6 +26,15 @@ abstract class BaseConnector implements ConnectorInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getType()
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function init()

@@ -12,6 +12,8 @@ class StashConnector extends BaseConnector
 
     public function __construct($name, $host, $username, $password)
     {
+        $this->type = 'stash';
+
         $this->name = $name;
         $this->host = $host;
         $this->username = $username;

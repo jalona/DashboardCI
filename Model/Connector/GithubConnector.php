@@ -11,6 +11,8 @@ class GithubConnector extends BaseConnector
 
     public function __construct($name, $host, $token)
     {
+        $this->type = 'github';
+
         $this->name = $name;
         $this->host = $host;
         $this->token = $token;

@@ -14,6 +14,13 @@ interface ConnectorInterface
     public function getName();
 
     /**
+     * Return the type of the connector
+     *
+     * @return string
+     */
+    public function getType();
+
+    /**
      * Add the authentication on all curl queries
      */
     public function addAuthentication();
