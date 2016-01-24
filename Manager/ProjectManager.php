@@ -10,6 +10,7 @@ use MB\DashboardBundle\Exception\ConnectorNotFoundException;
 use MB\DashboardBundle\Repository\SourceGroupRepository;
 use MB\DashboardBundle\Entity\SourceGroup;
 use MB\DashboardBundle\Repository\CommitRepository;
+use MB\DashboardBundle\Entity\Commit;
 
 class ProjectManager
 {
@@ -102,10 +103,23 @@ class ProjectManager
                 $project = $connect->fillProject($project, $row, $sourceGroup);
                 $projects[$key] = $project;
                 $this->em->persist($project);
+            }
+        }
 
-                /**
-                 * @todo : get commits and store it in the DB
-                 */
+        $this->em->flush();
+
+        foreach ($projects as $project) {
+            $connect = $this->connections[$project->getSourceConnectorIdentifier()];
+            if (in_array($connect->getType(), static::getSourceConnectorTypes())) {
+                $commits = $connect->importAllCommits($project);
+                foreach ($commits as $rawCommit) {
+                    $commit = $this->commitRepo->findOneBy(array('sourceId' => $connect->getCommitId($rawCommit), 'project' => $project));
+                    if (!$commit) {
+                        $commit = new Commit();
+                    }
+                    $commit = $connect->fillCommit($commit, $rawCommit, $project);
+                    $this->em->persist($commit);
+                }
             }
         }
 

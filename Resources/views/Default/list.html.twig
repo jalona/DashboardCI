@@ -7,6 +7,7 @@
 				<tr>
 					<th>Project</th>
 					<th>url</th>
+					<th>commits</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -15,7 +16,7 @@
 					{% if project.sourceConnectorIdentifier != connector %}
 						{% set connector = project.sourceConnectorIdentifier %}
 						<tr>
-							<td colspan="2">{{ connector }}</td>
+							<td colspan="3">{{ connector }}</td>
 						</tr>
 					{% endif %}
 					<tr>
@@ -25,6 +26,7 @@
 							{% endif %}
 						</td>
 						<td><a href="{{ project.sourceUrl }}" target="_blank">{{ project.sourceTitle }}</a></td>
+						<td>{{ project.commits|length }} commits</td>
 					</tr>
 				{% endfor %}
 			</tbody>

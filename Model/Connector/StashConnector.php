@@ -5,6 +5,7 @@ namespace MB\DashboardBundle\Model\Connector;
 use MB\DashboardBundle\Model\Connector\BaseConnector;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 use MB\DashboardBundle\Model\Group\SourceGroupInterface;
+use MB\DashboardBundle\Model\Commit\CommitInterface;
 
 class StashConnector extends BaseConnector
 {
@@ -28,6 +29,15 @@ class StashConnector extends BaseConnector
     public function getGroupId(\stdClass $project)
     {
         return $project->project->id;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getCommitId()
+     */
+    public function getCommitId(\stdClass $commit)
+    {
+        return $commit->id;
     }
 
     /**
@@ -89,6 +99,38 @@ class StashConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importAllCommits()
+     */
+    public function importAllCommits(SourceProjectInterface $project)
+    {
+        $commits = array();
+
+        // Get all commits
+        $startIndex = 0;
+        do {
+            $this->paramsGet['start'] = $startIndex;
+            $result = json_decode($this->execute('/rest/api/1.0/projects/' . $project->getSourceGroup()->getPath() . '/repos/' . $project->getSourcePath() . '/commits'));
+
+            if (isset($result->errors)) {
+                return array();
+                } else {
+
+                $commits = array_merge($commits, $result->values);
+
+                if (!$result->isLastPage) {
+                    $startIndex = $result->nextPageStart;
+                } else {
+                    $startIndex = 0;
+                }
+            }
+
+        } while ($startIndex > 0);
+
+        return $commits;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\BaseConnector::addAuthentication()
      */
     public function addAuthentication()
@@ -131,5 +173,22 @@ class StashConnector extends BaseConnector
         $project->setSourcePath($data->slug);
 
         return $project;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillCommit()
+     */
+    public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project)
+    {
+        $commit->setSourceId($data->id);
+        $commit->setAuthorEmail($data->author->emailAddress);
+        $commit->setAuthorName( (isset($data->author->displayName) ? $data->author->displayName : $data->author->name) );
+        $commit->setHash($data->id);
+        $commit->setComment($data->message);
+        $commit->setProject($project);
+        $commit->setUrl($this->host . '/projects/' . $project->getSourceGroup()->getPath() . '/repos/' . $project->getSourcePath() . '/commits/' . $data->id);
+
+        return $commit;
     }
 }

@@ -6,6 +6,22 @@ use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 interface CommitInterface
 {
     /**
+     * Set sourceId
+     *
+     * @param string $sourceId
+     *
+     * @return CommitInterface
+     */
+    public function setSourceId($sourceId);
+
+    /**
+     * Get sourceId
+     *
+     * @return string
+    */
+    public function getSourceId();
+
+    /**
      * Set authorName
      *
      * @param string $authorName

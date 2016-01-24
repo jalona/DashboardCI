@@ -24,15 +24,31 @@ abstract class BaseConnector implements ConnectorInterface
         $this->init();
     }
 
-
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getProjectId()
+     */
     public function getProjectId(\stdClass $project)
     {
         return $project->id;
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getGroupId()
+     */
     public function getGroupId(\stdClass $project)
     {
         return $project->group->id;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getCommitId()
+     */
+    public function getCommitId(\stdClass $commit)
+    {
+        return $commit->id;
     }
 
     /**

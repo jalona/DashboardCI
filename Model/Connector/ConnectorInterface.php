@@ -24,6 +24,14 @@ interface ConnectorInterface
     public function getGroupId(\stdClass $project);
 
     /**
+     * Return the id of the given commit raw data
+     *
+     * @param \stdClass $project
+     * @return integer
+     */
+    public function getCommitId(\stdClass $project);
+
+    /**
      * Return the name of the connector
      *
      * @return string

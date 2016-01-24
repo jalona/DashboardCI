@@ -5,6 +5,7 @@ namespace MB\DashboardBundle\Model\Connector;
 use MB\DashboardBundle\Model\Connector\BaseConnector;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 use MB\DashboardBundle\Model\Group\SourceGroupInterface;
+use MB\DashboardBundle\Model\Commit\CommitInterface;
 
 class GitlabConnector extends BaseConnector
 {
@@ -30,11 +31,29 @@ class GitlabConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getCommitId()
+     */
+    public function getCommitId(\stdClass $commit)
+    {
+        return $commit->id;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\BaseConnector::importAllProjects()
      */
     public function importAllProjects()
     {
         return json_decode($this->execute('/api/v3/projects'));
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importAllCommits()
+     */
+    public function importAllCommits(SourceProjectInterface $project)
+    {
+        return json_decode($this->execute('/api/v3/projects/' . $project->getSourceId() . '/repository/commits'));
     }
 
     /**
@@ -79,5 +98,22 @@ class GitlabConnector extends BaseConnector
         $project->setSourcePath($data->path);
 
         return $project;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillCommit()
+     */
+    public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project)
+    {
+        $commit->setSourceId($data->id);
+        $commit->setAuthorEmail($data->author_email);
+        $commit->setAuthorName($data->author_name);
+        $commit->setHash($data->id);
+        $commit->setComment($data->message);
+        $commit->setProject($project);
+        $commit->setUrl($project->getSourceUrl() . '/commit/' .  $data->id);
+
+        return $commit;
     }
 }

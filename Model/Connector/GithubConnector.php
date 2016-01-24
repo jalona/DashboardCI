@@ -32,6 +32,15 @@ class GithubConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getCommitId()
+     */
+    public function getCommitId(\stdClass $commit)
+    {
+        return $commit->sha;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\BaseConnector::importAllProjects()
      */
     public function importAllProjects()
@@ -45,7 +54,12 @@ class GithubConnector extends BaseConnector
      */
     public function importAllCommits(SourceProjectInterface $project)
     {
-        return json_decode($this->execute('/repos/' . $project->getSourceGroup()->getPath() . '/' . $project->getSourcePath() . '/commits'));
+        $result = json_decode($this->execute('/repos/' . $project->getSourceGroup()->getPath() . '/' . $project->getSourcePath() . '/commits'));
+        if (isset($result->message)) {
+            return array();
+        } else {
+            return $result;
+        }
     }
 
     /**
@@ -93,12 +107,13 @@ class GithubConnector extends BaseConnector
         return $project;
    }
 
-   /**
-    * (non-PHPdoc)
-    * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillCommit()
-    */
-   public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project)
-   {
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillCommit()
+     */
+    public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project)
+    {
+        $commit->setSourceId($data->sha);
         $commit->setAuthorEmail($data->commit->author->email);
         $commit->setAuthorName($data->commit->author->name);
         $commit->setHash($data->sha);
@@ -107,5 +122,5 @@ class GithubConnector extends BaseConnector
         $commit->setUrl($data->html_url);
 
         return $commit;
-   }
+    }
 }

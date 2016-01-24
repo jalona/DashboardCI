@@ -25,6 +25,13 @@ class Commit implements CommitInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="source_id", type="string", length=255)
+     */
+    private $sourceId;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="authorName", type="string", length=255)
      */
     private $authorName;
@@ -74,6 +81,26 @@ class Commit implements CommitInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Commit\CommitInterface::setSourceId()
+     */
+    public function setSourceId($sourceId)
+    {
+        $this->sourceId = $sourceId;
+
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Commit\CommitInterface::getSourceId()
+     */
+    public function getSourceId()
+    {
+        return $this->sourceId;
     }
 
     /**
