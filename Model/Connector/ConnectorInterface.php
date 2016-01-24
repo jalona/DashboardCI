@@ -4,6 +4,7 @@ namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 use MB\DashboardBundle\Model\Group\SourceGroupInterface;
+use MB\DashboardBundle\Model\Commit\CommitInterface;
 interface ConnectorInterface
 {
     /**
@@ -96,6 +97,17 @@ interface ConnectorInterface
     public function importAllProjects();
 
     /**
+     * Import all projects available with the current connection
+     *
+     * @param SourceProjectInterface $project
+     *
+     * @throws FunctionNotImplementedException
+     *
+     * @return array
+     */
+    public function importAllCommits(SourceProjectInterface $project);
+
+    /**
      * Fill a given SourceProjectInterface with the given object data
      *
      * @param SourceProjectInterface $project
@@ -119,4 +131,17 @@ interface ConnectorInterface
      * @return SourceGroupInterface
      */
     public function fillGroup(SourceGroupInterface $group, \stdClass $data);
+
+    /**
+     * Fill a given CommitInterface with the given object data
+     *
+     * @param CommitInterface $commit
+     * @param \stdClass $data
+     * @param SourceProjectInterface $project
+     *
+     * @throws FunctionNotImplementedException
+     *
+     * @return CommitInterface
+     */
+    public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project);
 }

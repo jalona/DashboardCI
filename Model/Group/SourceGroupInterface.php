@@ -9,7 +9,7 @@ interface SourceGroupInterface
      *
      * @param integer $sourceId
      *
-     * @return ISourceProject
+     * @return SourceGroupInterface
      */
     public function setSourceId($sourceId);
 
@@ -53,6 +53,22 @@ interface SourceGroupInterface
     public function getTitle();
 
     /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return SourceGroupInterface
+     */
+    public function setPath($path);
+
+    /**
+     * Get path
+     *
+     * @return string
+    */
+    public function getPath();
+
+    /**
      * Set url
      *
      * @param string $url
@@ -89,5 +105,5 @@ interface SourceGroupInterface
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getprojects();
+    public function getProjects();
 }

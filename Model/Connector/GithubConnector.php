@@ -5,6 +5,7 @@ namespace MB\DashboardBundle\Model\Connector;
 use MB\DashboardBundle\Model\Connector\BaseConnector;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 use MB\DashboardBundle\Model\Group\SourceGroupInterface;
+use MB\DashboardBundle\Model\Commit\CommitInterface;
 
 class GithubConnector extends BaseConnector
 {
@@ -40,6 +41,15 @@ class GithubConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\BaseConnector::importAllCommits()
+     */
+    public function importAllCommits(SourceProjectInterface $project)
+    {
+        return json_decode($this->execute('/repos/' . $project->getSourceGroup()->getPath() . '/' . $project->getSourcePath() . '/commits'));
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\BaseConnector::addAuthentication()
      */
     public function addAuthentication()
@@ -58,6 +68,7 @@ class GithubConnector extends BaseConnector
         $group->setSourceConnectorIdentifier($this->getName());
         $group->setTitle($data->owner->login);
         $group->setUrl($data->owner->html_url);
+        $group->setPath($data->owner->login);
 
         return $group;
     }
@@ -77,7 +88,24 @@ class GithubConnector extends BaseConnector
         $project->setSourceTitle($data->name);
         $project->setSourceUrl($data->html_url);
         $project->setSourceDescription($data->description);
+        $project->setSourcePath($data->name);
 
         return $project;
+   }
+
+   /**
+    * (non-PHPdoc)
+    * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillCommit()
+    */
+   public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project)
+   {
+        $commit->setAuthorEmail($data->commit->author->email);
+        $commit->setAuthorName($data->commit->author->name);
+        $commit->setHash($data->sha);
+        $commit->setComment($data->commit->message);
+        $commit->setProject($project);
+        $commit->setUrl($data->html_url);
+
+        return $commit;
    }
 }

@@ -9,12 +9,14 @@ use MB\DashboardBundle\Entity\Project;
 use MB\DashboardBundle\Exception\ConnectorNotFoundException;
 use MB\DashboardBundle\Repository\SourceGroupRepository;
 use MB\DashboardBundle\Entity\SourceGroup;
+use MB\DashboardBundle\Repository\CommitRepository;
 
 class ProjectManager
 {
     protected $em;
     protected $sourceGroupRepo;
     protected $projectRepo;
+    protected $commitRepo;
     protected $connections;
 
     /**
@@ -37,11 +39,12 @@ class ProjectManager
         return array('gitlabci', 'bamboo', 'jenkins');
     }
 
-    public function __construct(EntityManager $em, SourceGroupRepository $sourceGroupRepo, ProjectRepository $projectRepo, ServiceConnector $connections)
+    public function __construct(EntityManager $em, SourceGroupRepository $sourceGroupRepo, ProjectRepository $projectRepo, CommitRepository $commitRepo, ServiceConnector $connections)
     {
         $this->em = $em;
         $this->sourceGroupRepo = $sourceGroupRepo;
         $this->projectRepo = $projectRepo;
+        $this->commitRepo = $commitRepo;
         $this->connections = $connections->getConnections();
     }
 
@@ -53,14 +56,15 @@ class ProjectManager
     public function importAll()
     {
         $groups = array();
+        $projects = array();
 
         foreach ($this->connections as $connect)
         {
-            $projects = $connect->importAllProjects();
-            foreach ($projects as $project)
+            $rows = $connect->importAllProjects();
+            foreach ($rows as $row)
             {
                 $sourceGroup = null;
-                $row = null;
+                $project = null;
                 $fieldId = null;
                 $connectorIdentifier = null;
 
@@ -76,8 +80,8 @@ class ProjectManager
                 }
 
                 // Get the source group, create if doesn't exists, fill/update and store
-                $sourceGroup = $this->sourceGroupRepo->findOneBy(array('sourceId' => $connect->getGroupId($project), $connectorIdentifier => $connect->getName()));
-                $key = $connect->getName() . '-' . $connect->getGroupId($project);
+                $sourceGroup = $this->sourceGroupRepo->findOneBy(array('sourceId' => $connect->getGroupId($row), $connectorIdentifier => $connect->getName()));
+                $key = $connect->getName() . '-' . $connect->getGroupId($row);
                 if (!$sourceGroup) {
                     if (isset($groups[$key])) {
                         $sourceGroup = $groups[$key];
@@ -85,17 +89,23 @@ class ProjectManager
                         $sourceGroup = new SourceGroup();
                     }
                 }
-                $sourceGroup = $connect->fillGroup($sourceGroup, $project);
+                $sourceGroup = $connect->fillGroup($sourceGroup, $row);
                 $groups[$key] = $sourceGroup;
                 $this->em->persist($sourceGroup);
 
                 // Get the project, create if doesn't exists, fill/update and store
-                $row = $this->projectRepo->findOneBy(array($fieldId => $connect->getProjectId($project), $connectorIdentifier => $connect->getName()));
-                if (!$row) {
-                    $row = new Project();
+                $project = $this->projectRepo->findOneBy(array($fieldId => $connect->getProjectId($row), $connectorIdentifier => $connect->getName()));
+                $key = $connect->getName() . '-' . $connect->getProjectId($row);
+                if (!$project) {
+                    $project = new Project();
                 }
-                $row = $connect->fillProject($row, $project, $sourceGroup);
-                $this->em->persist($row);
+                $project = $connect->fillProject($project, $row, $sourceGroup);
+                $projects[$key] = $project;
+                $this->em->persist($project);
+
+                /**
+                 * @todo : get commits and store it in the DB
+                 */
             }
         }
 

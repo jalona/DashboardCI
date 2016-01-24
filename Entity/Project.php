@@ -110,6 +110,13 @@ class Project implements ProjectInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="source_path", type="string", length=255)
+     */
+    private $sourcePath;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="source_description", type="string", length=255, nullable=true)
      */
     private $sourceDescription;
@@ -127,6 +134,13 @@ class Project implements ProjectInterface
      * @ORM\Column(name="ci_description", type="string", length=255, nullable=true)
      */
     private $ciDescription;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="MB\DashboardBundle\Entity\Commit", mappedBy="project")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commits;
 
     /**
      * Get id
@@ -240,6 +254,26 @@ class Project implements ProjectInterface
     public function getSourceTitle()
     {
         return $this->sourceTitle;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourcePath()
+     */
+    public function setSourcePath($sourcePath)
+    {
+        $this->sourcePath = $sourcePath;
+
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceGroupInterface::getSourcePath()
+     */
+    public function getSourcePath()
+    {
+        return $this->sourcePath;
     }
 
     /**
@@ -445,5 +479,34 @@ class Project implements ProjectInterface
     public function getCiDescription()
     {
         return $this->ciDescription;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::addCommit()
+     */
+    public function addPCommit(\MB\DashboardBundle\Entity\Commit $commit)
+    {
+        $this->commits[] = $commit;
+
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::removeCommit()
+     */
+    public function removeCommit(\MB\DashboardBundle\Entity\Commit $commit)
+    {
+        $this->commits->removeElement($commit);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getCommits()
+     */
+    public function getCommits()
+    {
+        return $this->commits;
     }
 }

@@ -56,6 +56,7 @@ class GitlabConnector extends BaseConnector
         $group->setSourceConnectorIdentifier($this->getName());
         $group->setTitle($data->namespace->name);
         $group->setUrl($this->host . '/' .  $data->namespace->path);
+        $group->setPath($data->namespace->path);
 
         return $group;
     }
@@ -75,6 +76,7 @@ class GitlabConnector extends BaseConnector
         $project->setSourceTitle($data->path);
         $project->setSourceUrl($data->web_url);
         $project->setSourceDescription($data->description);
+        $project->setSourcePath($data->path);
 
         return $project;
     }

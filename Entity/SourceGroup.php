@@ -46,6 +46,13 @@ class SourceGroup implements SourceGroupInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="path", type="string", length=255)
+     */
+    private $path;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
@@ -134,6 +141,26 @@ class SourceGroup implements SourceGroupInterface
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceGroupInterface::setPath()
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceGroupInterface::getPath()
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Project\SourceGroupInterface::setUrl()
      */
     public function setUrl($url)
@@ -174,9 +201,9 @@ class SourceGroup implements SourceGroupInterface
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Project\SourceGroupInterface::getprojects()
+     * @see \MB\DashboardBundle\Model\Project\SourceGroupInterface::getProjects()
      */
-    public function getprojects()
+    public function getProjects()
     {
         return $this->projects;
     }

@@ -5,6 +5,7 @@ namespace MB\DashboardBundle\Model\Connector;
 use MB\DashboardBundle\Exception\FunctionNotImplementedException;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 use MB\DashboardBundle\Model\Group\SourceGroupInterface;
+use MB\DashboardBundle\Model\Commit\CommitInterface;
 
 abstract class BaseConnector implements ConnectorInterface
 {
@@ -148,6 +149,15 @@ abstract class BaseConnector implements ConnectorInterface
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importAllCommits()
+     */
+    public function importAllCommits(SourceProjectInterface $project)
+    {
+        throw new FunctionNotImplementedException('importAllCommits');
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::addAuthentication()
      */
     public function addAuthentication()
@@ -171,5 +181,14 @@ abstract class BaseConnector implements ConnectorInterface
     public function fillGroup(SourceGroupInterface $group, \stdClass $data)
     {
         throw new FunctionNotImplementedException('fillGroup');
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillCommit()
+     */
+    public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project)
+    {
+        throw new FunctionNotImplementedException('fillCommit');
     }
 }

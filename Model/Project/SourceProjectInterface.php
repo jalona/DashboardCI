@@ -10,7 +10,7 @@ interface SourceProjectInterface
      *
      * @param integer $sourceId
      *
-     * @return ISourceProject
+     * @return SourceProjectInterface
      */
     public function setSourceId($sourceId);
 
@@ -26,7 +26,7 @@ interface SourceProjectInterface
      *
      * @param string $sourceConnectorIdentifier
      *
-     * @return ISourceProject
+     * @return SourceProjectInterface
      */
     public function setSourceConnectorIdentifier($sourceConnectorIdentifier);
 
@@ -42,7 +42,7 @@ interface SourceProjectInterface
      *
      * @param \MB\DashboardBundle\Entity\SourceGroup $sourceGroup
      *
-     * @return ISourceProject
+     * @return SourceProjectInterface
      */
     public function setSourceGroup(\MB\DashboardBundle\Entity\SourceGroup $sourceGroup);
 
@@ -58,7 +58,7 @@ interface SourceProjectInterface
      *
      * @param string $sourceUrl
      *
-     * @return ISourceProject
+     * @return SourceProjectInterface
      */
     public function setSourceUrl($sourceUrl);
 
@@ -74,7 +74,7 @@ interface SourceProjectInterface
      *
      * @param string $sourceTitle
      *
-     * @return ISourceProject
+     * @return SourceProjectInterface
      */
     public function setSourceTitle($sourceTitle);
 
@@ -86,11 +86,27 @@ interface SourceProjectInterface
     public function getSourceTitle();
 
     /**
+     * Set sourcePath
+     *
+     * @param string $sourcePath
+     *
+     * @return SourceProjectInterface
+     */
+    public function setSourcePath($sourcePath);
+
+    /**
+     * Get sourcePath
+     *
+     * @return string
+    */
+    public function getSourcePath();
+
+    /**
      * Set sourceDescription
      *
      * @param string $sourceDescription
      *
-     * @return ISourceProject
+     * @return SourceProjectInterface
      */
     public function setSourceDescription($sourceDescription);
 
