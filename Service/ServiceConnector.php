@@ -38,7 +38,7 @@ class ServiceConnector
                 $this->connections[$name] = new GitlabConnector($name, $connection['host'], $connection['api_token']);
                 break;
             case 'github':
-                $this->connections[$name] = new GithubConnector($name, $connection['host'], $connection['api_token']);
+                $this->connections[$name] = new GithubConnector($name, $connection['api_token']);
                 break;
             case 'stash':
                 $this->connections[$name] = new StashConnector($name, $connection['host'], $connection['api_username'], $connection['api_password']);

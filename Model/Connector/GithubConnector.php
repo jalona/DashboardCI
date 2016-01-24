@@ -9,12 +9,12 @@ class GithubConnector extends BaseConnector
 {
     protected $token;
 
-    public function __construct($name, $host, $token)
+    public function __construct($name, $token)
     {
         $this->type = 'github';
 
         $this->name = $name;
-        $this->host = $host;
+        $this->host = 'https://api.github.com';
         $this->token = $token;
         parent::__construct();
     }
