@@ -98,7 +98,7 @@ class StashConnector extends BaseConnector
         $project->setSourceConnectorIdentifier($this->getName());
         $project->setSourceGroupTitle($data->project->name);
         $project->setSourceGroupUrl($this->host .  $data->project->link->url);
-        $project->setSourceTitle($data->project->name . '/' . $data->name);
+        $project->setSourceTitle($data->name);
         $project->setSourceUrl($this->host .  $data->link->url);
         $project->setSourceDescription( (isset($data->project->description) ? $data->project->description : null) );
 
