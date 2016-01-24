@@ -33,9 +33,7 @@ class GitlabConnector extends BaseConnector
      */
     public function addAuthentication()
     {
-        curl_setopt($this->ch, CURLOPT_HTTPHEADER, array(
-            'PRIVATE-TOKEN: ' . $this->token
-        ));
+        $this->headers[] = 'PRIVATE-TOKEN: ' . $this->token;
     }
 
     /**

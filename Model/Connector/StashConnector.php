@@ -85,9 +85,7 @@ class StashConnector extends BaseConnector
     {
         $chain = $this->username . ':' . $this->password;
 
-        curl_setopt($this->ch, CURLOPT_HTTPHEADER, array(
-            'Authorization: Basic ' . base64_encode($chain)
-        ));
+        $this->headers[] = 'Authorization: Basic ' . base64_encode($chain);
     }
 
     /**

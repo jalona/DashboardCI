@@ -35,7 +35,7 @@ class GithubConnector extends BaseConnector
     public function addAuthentication()
     {
         $this->paramsGet['access_token'] = $this->token;
-        curl_setopt($this->ch, CURLOPT_USERAGENT, 'MB/DashboardBundle');
+        $this->userAgent = 'MB/DashboardBundle';
     }
 
     /**

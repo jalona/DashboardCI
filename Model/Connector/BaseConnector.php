@@ -13,6 +13,8 @@ abstract class BaseConnector implements ConnectorInterface
     protected $ch;
     protected $paramsGet;
     protected $paramsPost;
+    protected $headers;
+    protected $userAgent;
 
     public function __construct()
     {
@@ -37,27 +39,69 @@ abstract class BaseConnector implements ConnectorInterface
         return $this->type;
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getParamsGet()
+     */
+    public function getParamsGet()
+    {
+        return $this->paramsGet;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getParamsPost()
+     */
+    public function getParamsPost()
+    {
+        return $this->paramsPost;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getHeaders()
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::getUserAgent()
+     */
+    public function getUserAgent()
+    {
+        return $this->userAgent;
+    }
+
     public function init()
     {
         $this->paramsGet = array();
         $this->paramsPost = array();
+        $this->headers = array();
     }
 
     /**
-     * ! Do not call this function yourself !
-     *
-     * Build the curl query which will be used by execute()
-     *
-     * @param string $target
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::prepareQuery()
      */
-    protected function prepareQuery($target = null)
+    public function prepareQuery($target = null)
     {
         $this->ch = curl_init();
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
         $this->addAuthentication();
 
+        if (!empty($this->headers)) {
+            curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->headers);
+        }
+
         if (!empty($this->paramsGet)) {
             $target = $target . '?' . http_build_query($this->paramsGet);
+        }
+
+        if (strlen(trim($this->userAgent)) > 0) {
+            curl_setopt($this->ch, CURLOPT_USERAGENT, $this->userAgent);
         }
 
         curl_setopt($this->ch, CURLOPT_URL, $this->host . $target);
