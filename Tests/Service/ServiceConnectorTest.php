@@ -24,7 +24,7 @@ class ServiceConnectorTest extends \PHPUnit_Framework_TestCase
 
         $serviceConnector = new ServiceConnector($config);
 
-        $this->assertEquals(1, count( $serviceConnector->getConnections() ));
+        $this->assertCount(1, $serviceConnector->getConnections());
 
         $connector = $serviceConnector->getConnection('test_github');
         $this->assertNotNull($connector);
@@ -48,7 +48,7 @@ class ServiceConnectorTest extends \PHPUnit_Framework_TestCase
 
         $serviceConnector = new ServiceConnector($config);
 
-        $this->assertEquals(1, count( $serviceConnector->getConnections() ));
+        $this->assertCount(1, $serviceConnector->getConnections());
 
         $connector = $serviceConnector->getConnection('test_gitlab');
         $this->assertNotNull($connector);
@@ -73,7 +73,7 @@ class ServiceConnectorTest extends \PHPUnit_Framework_TestCase
 
         $serviceConnector = new ServiceConnector($config);
 
-        $this->assertEquals(1, count( $serviceConnector->getConnections() ));
+        $this->assertCount(1, $serviceConnector->getConnections());
 
         $connector = $serviceConnector->getConnection('test_stash');
         $this->assertNotNull($connector);
@@ -108,7 +108,7 @@ class ServiceConnectorTest extends \PHPUnit_Framework_TestCase
 
         $serviceConnector = new ServiceConnector($config);
 
-        $this->assertEquals(3, count( $serviceConnector->getConnections() ));
+        $this->assertCount(3, $serviceConnector->getConnections());
 
         $connector = $serviceConnector->getConnection('test_github');
         $this->assertNotNull($connector);
