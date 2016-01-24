@@ -4,6 +4,7 @@ namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Model\Connector\BaseConnector;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
+use MB\DashboardBundle\Model\Group\SourceGroupInterface;
 
 class GitlabConnector extends BaseConnector
 {
@@ -16,6 +17,15 @@ class GitlabConnector extends BaseConnector
         $this->name = $name;
         $this->host = $host;
         $this->token = $token;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\BaseConnector::getGroupId()
+     */
+    public function getGroupId(\stdClass $project)
+    {
+        return $project->namespace->id;
     }
 
     /**
@@ -38,14 +48,30 @@ class GitlabConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\BaseConnector::fillGroup()
+     */
+    public function fillGroup(SourceGroupInterface $group, \stdClass $data)
+    {
+        $group->setSourceId($data->namespace->id);
+        $group->setSourceConnectorIdentifier($this->getName());
+        $group->setTitle($data->namespace->name);
+        $group->setUrl($this->host . '/' .  $data->namespace->path);
+
+        return $group;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillProject()
      */
-    public function fillProject(SourceProjectInterface $project, \stdClass $data)
+    public function fillProject(SourceProjectInterface $project, \stdClass $data, SourceGroupInterface $sourceGroup = null)
     {
         $project->setSourceId($data->id);
         $project->setSourceConnectorIdentifier($this->getName());
-        $project->setSourceGroupTitle($data->namespace->name);
-        $project->setSourceGroupUrl($this->host . '/' . $data->namespace->path);
+        if ($sourceGroup) {
+            $project->setSourceGroup($sourceGroup);
+            $sourceGroup->addProject($project);
+        }
         $project->setSourceTitle($data->path);
         $project->setSourceUrl($data->web_url);
         $project->setSourceDescription($data->description);

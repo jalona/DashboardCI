@@ -51,18 +51,12 @@ class Project implements ProjectInterface
     private $ciConnectorIdentifier;
 
     /**
-     * @var string
+     * @var SourceGroup
      *
-     * @ORM\Column(name="source_group_title", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="MB\DashboardBundle\Entity\SourceGroup", inversedBy="projects")
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
-    private $sourceGroupTitle;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="source_group_url", type="string", length=255, nullable=true)
-     */
-    private $sourceGroupUrl;
+    private $sourceGroup;
 
     /**
      * @var string
@@ -190,39 +184,22 @@ class Project implements ProjectInterface
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceGroupTitle()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceGroup()
      */
-    public function setSourceGroupTitle($sourceGroupTitle)
+    public function setSourceGroup(\MB\DashboardBundle\Entity\SourceGroup $sourceGroup)
     {
-        $this->sourceGroupTitle = $sourceGroupTitle;
+        $this->sourceGroup = $sourceGroup;
 
         return $this;
     }
 
     /**
      * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceGroupTitle()
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceGroup()
      */
-    public function getSourceGroupTitle()
+    public function getSourceGroup()
     {
-        return $this->sourceGroupTitle;
-    }
-
-
-    public function setSourceGroupUrl($sourceGroupUrl)
-    {
-        $this->sourceGroupUrl = $sourceGroupUrl;
-
-        return $this;
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceGroupUrl()
-     */
-    public function getSourceGroupUrl()
-    {
-        return $this->sourceGroupUrl;
+        return $this->sourceGroup;
     }
 
     /**

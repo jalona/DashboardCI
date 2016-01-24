@@ -2,10 +2,26 @@
 
 namespace MB\DashboardBundle\Model\Connector;
 
-use MB\DashboardBundle\Model\Project\ISourceProject;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
+use MB\DashboardBundle\Model\Group\SourceGroupInterface;
 interface ConnectorInterface
 {
+    /**
+     * Return the id of the given project raw data
+     *
+     * @param \stdClass $project
+     * @return integer
+     */
+    public function getProjectId(\stdClass $project);
+
+    /**
+     * Return the id of the given project's group raw data
+     *
+     * @param \stdClass $project
+     * @return integer
+     */
+    public function getGroupId(\stdClass $project);
+
     /**
      * Return the name of the connector
      *
@@ -80,14 +96,27 @@ interface ConnectorInterface
     public function importAllProjects();
 
     /**
-     * Fill a given ISourceProject with the given object data
+     * Fill a given SourceProjectInterface with the given object data
      *
-     * @param ISourceProject $project
+     * @param SourceProjectInterface $project
+     * @param \stdClass $data
+     * @param SourceGroupInterface $sourceGroup
+     *
+     * @throws FunctionNotImplementedException
+     *
+     * @return SourceProjectInterface
+     */
+    public function fillProject(SourceProjectInterface $project, \stdClass $data, SourceGroupInterface $sourceGroup = null);
+
+    /**
+     * Fill a given SourceGroupInterface with the given object data
+     *
+     * @param SourceGroupInterface $project
      * @param \stdClass $data
      *
      * @throws FunctionNotImplementedException
      *
-     * @return ISourceProject
+     * @return SourceGroupInterface
      */
-    public function fillProject(SourceProjectInterface $project, \stdClass $data);
+    public function fillGroup(SourceGroupInterface $group, \stdClass $data);
 }

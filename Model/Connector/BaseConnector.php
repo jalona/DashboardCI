@@ -3,6 +3,8 @@
 namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Exception\FunctionNotImplementedException;
+use MB\DashboardBundle\Model\Project\SourceProjectInterface;
+use MB\DashboardBundle\Model\Group\SourceGroupInterface;
 
 abstract class BaseConnector implements ConnectorInterface
 {
@@ -19,6 +21,17 @@ abstract class BaseConnector implements ConnectorInterface
     public function __construct()
     {
         $this->init();
+    }
+
+
+    public function getProjectId(\stdClass $project)
+    {
+        return $project->id;
+    }
+
+    public function getGroupId(\stdClass $project)
+    {
+        return $project->group->id;
     }
 
     /**
@@ -140,5 +153,23 @@ abstract class BaseConnector implements ConnectorInterface
     public function addAuthentication()
     {
         throw new FunctionNotImplementedException('addAuthentication');
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillProject()
+     */
+    public function fillProject(SourceProjectInterface $project, \stdClass $data, SourceGroupInterface $sourceGroup = null)
+    {
+        throw new FunctionNotImplementedException('fillProject');
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillGroup()
+     */
+    public function fillGroup(SourceGroupInterface $group, \stdClass $data)
+    {
+        throw new FunctionNotImplementedException('fillGroup');
     }
 }

@@ -20,8 +20,8 @@
 					{% endif %}
 					<tr>
 						<td>
-							{% if project.sourceGroupUrl is not empty %}
-								<a href="{{ project.sourceGroupUrl }}" target="_blank">{{ project.sourceGroupTitle }}</a>
+							{% if project.sourceGroup is not empty %}
+								<a href="{{ project.sourceGroup.url }}" target="_blank">{{ project.sourceGroup.title }}</a>
 							{% endif %}
 						</td>
 						<td><a href="{{ project.sourceUrl }}" target="_blank">{{ project.sourceTitle }}</a></td>

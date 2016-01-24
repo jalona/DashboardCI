@@ -4,6 +4,7 @@ namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Model\Connector\BaseConnector;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
+use MB\DashboardBundle\Model\Group\SourceGroupInterface;
 
 class StashConnector extends BaseConnector
 {
@@ -18,6 +19,15 @@ class StashConnector extends BaseConnector
         $this->host = $host;
         $this->username = $username;
         $this->password = $password;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\BaseConnector::getGroupId()
+     */
+    public function getGroupId(\stdClass $project)
+    {
+        return $project->project->id;
     }
 
     /**
@@ -90,14 +100,30 @@ class StashConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\BaseConnector::fillGroup()
+     */
+    public function fillGroup(SourceGroupInterface $group, \stdClass $data)
+    {
+        $group->setSourceId($data->project->id);
+        $group->setSourceConnectorIdentifier($this->getName());
+        $group->setTitle($data->project->name);
+        $group->setUrl($this->host . $data->project->link->url);
+
+        return $group;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillProject()
      */
-    public function fillProject(SourceProjectInterface $project, \stdClass $data)
+    public function fillProject(SourceProjectInterface $project, \stdClass $data, SourceGroupInterface $sourceGroup = null)
     {
         $project->setSourceId($data->id);
         $project->setSourceConnectorIdentifier($this->getName());
-        $project->setSourceGroupTitle($data->project->name);
-        $project->setSourceGroupUrl($this->host .  $data->project->link->url);
+        if ($sourceGroup) {
+            $project->setSourceGroup($sourceGroup);
+            $sourceGroup->addProject($project);
+        }
         $project->setSourceTitle($data->name);
         $project->setSourceUrl($this->host .  $data->link->url);
         $project->setSourceDescription( (isset($data->project->description) ? $data->project->description : null) );

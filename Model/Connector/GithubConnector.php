@@ -4,6 +4,7 @@ namespace MB\DashboardBundle\Model\Connector;
 
 use MB\DashboardBundle\Model\Connector\BaseConnector;
 use MB\DashboardBundle\Model\Project\SourceProjectInterface;
+use MB\DashboardBundle\Model\Group\SourceGroupInterface;
 
 class GithubConnector extends BaseConnector
 {
@@ -17,6 +18,15 @@ class GithubConnector extends BaseConnector
         $this->host = 'https://api.github.com';
         $this->token = $token;
         parent::__construct();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\BaseConnector::getGroupId()
+     */
+    public function getGroupId(\stdClass $project)
+    {
+        return $project->owner->id;
     }
 
     /**
@@ -40,18 +50,34 @@ class GithubConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\BaseConnector::fillGroup()
+     */
+    public function fillGroup(SourceGroupInterface $group, \stdClass $data)
+    {
+        $group->setSourceId($data->owner->id);
+        $group->setSourceConnectorIdentifier($this->getName());
+        $group->setTitle($data->owner->login);
+        $group->setUrl($data->owner->html_url);
+
+        return $group;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::fillProject()
      */
-    public function fillProject(SourceProjectInterface $project, \stdClass $data)
+    public function fillProject(SourceProjectInterface $project, \stdClass $data, SourceGroupInterface $sourceGroup = null)
     {
         $project->setSourceId($data->id);
         $project->setSourceConnectorIdentifier($this->getName());
-        $project->setSourceGroupTitle($data->owner->login);
-        $project->setSourceGroupUrl($data->owner->html_url);
+        if ($sourceGroup) {
+            $project->setSourceGroup($sourceGroup);
+            $sourceGroup->addProject($project);
+        }
         $project->setSourceTitle($data->name);
         $project->setSourceUrl($data->html_url);
         $project->setSourceDescription($data->description);
 
         return $project;
-    }
+   }
 }

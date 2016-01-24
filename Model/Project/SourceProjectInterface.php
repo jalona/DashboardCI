@@ -2,6 +2,7 @@
 
 namespace MB\DashboardBundle\Model\Project;
 
+use MB\DashboardBundle\Entity\SourceGroup;
 interface SourceProjectInterface
 {
     /**
@@ -37,36 +38,20 @@ interface SourceProjectInterface
     public function getSourceConnectorIdentifier();
 
     /**
-     * Set sourceGroupTitle
+     * Set sourceGroup
      *
-     * @param string $sourceGroupTitle
-     *
-     * @return ISourceProject
-     */
-    public function setSourceGroupTitle($sourceGroupTitle);
-
-    /**
-     * Get sourceGroupTitle
-     *
-     * @return string
-     */
-    public function getSourceGroupTitle();
-
-    /**
-     * Set sourceGroupUrl
-     *
-     * @param string $sourceGroupUrl
+     * @param \MB\DashboardBundle\Entity\SourceGroup $sourceGroup
      *
      * @return ISourceProject
      */
-    public function setSourceGroupUrl($sourceGroupUrl);
+    public function setSourceGroup(\MB\DashboardBundle\Entity\SourceGroup $sourceGroup);
 
     /**
-     * Get sourceGroupUrl
+     * Get sourceGroup
      *
-     * @return string
+     * @return SourceGroup
      */
-    public function getSourceGroupUrl();
+    public function getSourceGroup();
 
     /**
      * Set sourceUrl
