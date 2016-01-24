@@ -19,8 +19,12 @@
 						</tr>
 					{% endif %}
 					<tr>
-						<td>{{ project.sourceTitle }}</td>
-						<td><a href="{{ project.sourceUrl }}" target="_blank">{{ project.sourceUrl }}</a></td>
+						<td>
+							{% if project.sourceGroupUrl is not empty %}
+								<a href="{{ project.sourceGroupUrl }}" target="_blank">{{ project.sourceGroupTitle }}</a>
+							{% endif %}
+						</td>
+						<td><a href="{{ project.sourceUrl }}" target="_blank">{{ project.sourceTitle }}</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>

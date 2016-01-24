@@ -44,8 +44,10 @@ class GitlabConnector extends BaseConnector
     {
         $project->setSourceId($data->id);
         $project->setSourceConnectorIdentifier($this->getName());
+        $project->setSourceGroupTitle($data->namespace->name);
+        $project->setSourceGroupUrl($this->host . '/' . $data->namespace->path);
+        $project->setSourceTitle($data->path);
         $project->setSourceUrl($data->web_url);
-        $project->setSourceTitle($data->name_with_namespace);
         $project->setSourceDescription($data->description);
 
         return $project;

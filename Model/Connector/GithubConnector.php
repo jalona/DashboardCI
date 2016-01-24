@@ -46,8 +46,10 @@ class GithubConnector extends BaseConnector
     {
         $project->setSourceId($data->id);
         $project->setSourceConnectorIdentifier($this->getName());
+        $project->setSourceGroupTitle($data->owner->login);
+        $project->setSourceGroupUrl($data->owner->html_url);
+        $project->setSourceTitle($data->name);
         $project->setSourceUrl($data->html_url);
-        $project->setSourceTitle($data->full_name);
         $project->setSourceDescription($data->description);
 
         return $project;

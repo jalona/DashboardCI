@@ -53,6 +53,20 @@ class Project implements ProjectInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="source_group_title", type="string", length=255, nullable=true)
+     */
+    private $sourceGroupTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source_group_url", type="string", length=255, nullable=true)
+     */
+    private $sourceGroupUrl;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="source_url", type="string", length=255, nullable=true)
      */
     private $sourceUrl;
@@ -172,6 +186,43 @@ class Project implements ProjectInterface
     public function getSourceConnectorIdentifier()
     {
         return $this->sourceConnectorIdentifier;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::setSourceGroupTitle()
+     */
+    public function setSourceGroupTitle($sourceGroupTitle)
+    {
+        $this->sourceGroupTitle = $sourceGroupTitle;
+
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceGroupTitle()
+     */
+    public function getSourceGroupTitle()
+    {
+        return $this->sourceGroupTitle;
+    }
+
+
+    public function setSourceGroupUrl($sourceGroupUrl)
+    {
+        $this->sourceGroupUrl = $sourceGroupUrl;
+
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Project\SourceProjectInterface::getSourceGroupUrl()
+     */
+    public function getSourceGroupUrl()
+    {
+        return $this->sourceGroupUrl;
     }
 
     /**

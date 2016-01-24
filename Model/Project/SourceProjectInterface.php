@@ -37,6 +37,38 @@ interface SourceProjectInterface
     public function getSourceConnectorIdentifier();
 
     /**
+     * Set sourceGroupTitle
+     *
+     * @param string $sourceGroupTitle
+     *
+     * @return ISourceProject
+     */
+    public function setSourceGroupTitle($sourceGroupTitle);
+
+    /**
+     * Get sourceGroupTitle
+     *
+     * @return string
+     */
+    public function getSourceGroupTitle();
+
+    /**
+     * Set sourceGroupUrl
+     *
+     * @param string $sourceGroupUrl
+     *
+     * @return ISourceProject
+     */
+    public function setSourceGroupUrl($sourceGroupUrl);
+
+    /**
+     * Get sourceGroupUrl
+     *
+     * @return string
+     */
+    public function getSourceGroupUrl();
+
+    /**
      * Set sourceUrl
      *
      * @param string $sourceUrl
