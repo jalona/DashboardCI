@@ -65,6 +65,13 @@ class Commit implements CommitInterface
     private $url;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datetime", type="datetimetz")
+     */
+    private $datetime;
+
+    /**
      * @var Project
      *
      * @ORM\ManyToOne(targetEntity="MB\DashboardBundle\Entity\Project", inversedBy="commits")
@@ -201,6 +208,26 @@ class Commit implements CommitInterface
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Commit\CommitInterface::setDatetime()
+     */
+    public function setDatetime($datetime)
+    {
+        $this->datetime = $datetime;
+
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Commit\CommitInterface::getDatetime()
+     */
+    public function getDatetime()
+    {
+        return $this->datetime;
     }
 
     /**

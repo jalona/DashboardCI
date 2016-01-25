@@ -188,6 +188,9 @@ class StashConnector extends BaseConnector
         $commit->setComment($data->message);
         $commit->setProject($project);
         $commit->setUrl($this->host . '/projects/' . $project->getSourceGroup()->getPath() . '/repos/' . $project->getSourcePath() . '/commits/' . $data->id);
+        $datetime = new \DateTime();
+        $datetime->setTimestamp($data->authorTimestamp / 1000);
+        $commit->setDatetime($datetime);
 
         return $commit;
     }

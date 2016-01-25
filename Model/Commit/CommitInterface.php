@@ -102,6 +102,22 @@ interface CommitInterface
     public function getUrl();
 
     /**
+     * Set datetime
+     *
+     * @param \DateTime $datetime
+     *
+     * @return CommitInterface
+     */
+    public function setDatetime($datetime);
+
+    /**
+     * Get datetime
+     *
+     * @return \DateTime
+     */
+    public function getDatetime();
+
+    /**
      * Set project
      *
      * @param \MB\DashboardBundle\Entity\Project $project

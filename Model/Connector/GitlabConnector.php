@@ -113,6 +113,10 @@ class GitlabConnector extends BaseConnector
         $commit->setComment($data->message);
         $commit->setProject($project);
         $commit->setUrl($project->getSourceUrl() . '/commit/' .  $data->id);
+        $datetime = substr($data->created_at, 0, 19) . substr($data->created_at, -6);
+        dump($data->created_at);
+        dump($datetime);
+        $commit->setDatetime(\DateTime::createFromFormat(\DateTime::ISO8601, $datetime));
 
         return $commit;
     }

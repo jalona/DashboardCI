@@ -120,6 +120,7 @@ class GithubConnector extends BaseConnector
         $commit->setComment($data->commit->message);
         $commit->setProject($project);
         $commit->setUrl($data->html_url);
+        $commit->setDatetime(\DateTime::createFromFormat(\DateTime::ISO8601, $data->commit->author->date));
 
         return $commit;
     }
