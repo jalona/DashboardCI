@@ -99,6 +99,26 @@ class StashConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importProject()
+     */
+    public function importProject(SourceProjectInterface $project)
+    {
+        /*
+         * We need to list all projects since the stash API require to use the group identifier
+         * in the url and we cannot assume that the group doesn't changed it name between the previous
+         * sync and now. So we browse all project to find the matching one.
+         */
+        $projects = $this->importAllProjects();
+        foreach ($projects as $rawProject) {
+            if ($rawProject->id == $project->getSourceId()) {
+                return $rawProject;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importAllCommits()
      */
     public function importAllCommits(SourceProjectInterface $project)
