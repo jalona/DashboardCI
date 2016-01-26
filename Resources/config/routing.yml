@@ -3,8 +3,8 @@ mb_dashboard_index:
     defaults: { _controller: "MBDashboardBundle:Default:index" }
 
 mb_dashboard_import:
-    path:     /import
-    defaults: { _controller: "MBDashboardBundle:Default:import" }
+    path:     /import/{projectId}
+    defaults: { _controller: "MBDashboardBundle:Default:import", projectId: null }
 
 mb_dashboard_list:
     path:     /list

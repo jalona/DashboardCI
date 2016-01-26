@@ -152,4 +152,15 @@ interface ConnectorInterface
      * @return CommitInterface
      */
     public function fillCommit(CommitInterface $commit, \stdClass $data, SourceProjectInterface $project);
+
+    /**
+     * Refresh the given project information and refresh/include the commits if configured
+     *
+     * @param SourceProjectInterface $project
+     *
+     * @throws FunctionNotImplementedException
+     *
+     * @return \stdClass
+     */
+    public function importProject(SourceProjectInterface $project);
 }

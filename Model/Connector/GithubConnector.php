@@ -50,6 +50,15 @@ class GithubConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importProject()
+     */
+    public function importProject(SourceProjectInterface $project)
+    {
+        return json_decode($this->execute('/repos/' . $project->getSourceGroup()->getPath() . '/' . $project->getSourcePath()));
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\BaseConnector::importAllCommits()
      */
     public function importAllCommits(SourceProjectInterface $project)

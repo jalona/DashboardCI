@@ -11,12 +11,22 @@ class DefaultController extends Controller
         return $this->render('MBDashboardBundle:Default:index.html.twig');
     }
 
-    public function importAction()
+    public function importAction($projectId = null)
     {
         /* @var $manager \MB\DashboardBundle\Manager\ProjectManager */
         $manager = $this->get('mb_dashboard.project_manager');
 
-        $manager->importAll();
+        if ($projectId !== null) {
+            $repo = $this->getDoctrine()->getRepository('MBDashboardBundle:Project');
+            $project = $repo->find($projectId);
+            if ($project) {
+                $manager->importProject($project, true);
+            } else {
+                $this->createNotFoundException('There is no project associated with the given id');
+            }
+        } else {
+            $manager->importAll();
+        }
 
 
         return $this->render('MBDashboardBundle:Default:import.html.twig');

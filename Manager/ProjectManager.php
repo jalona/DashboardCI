@@ -11,6 +11,7 @@ use MB\DashboardBundle\Repository\SourceGroupRepository;
 use MB\DashboardBundle\Entity\SourceGroup;
 use MB\DashboardBundle\Repository\CommitRepository;
 use MB\DashboardBundle\Entity\Commit;
+use MB\DashboardBundle\Model\Project\SourceProjectInterface;
 
 class ProjectManager
 {
@@ -61,6 +62,8 @@ class ProjectManager
 
         foreach ($this->connections as $connect)
         {
+            /* @var $connect \MB\DashboardBundle\Model\Connector\ConnectorInterface */
+
             $rows = $connect->importAllProjects();
             foreach ($rows as $row)
             {
@@ -124,5 +127,57 @@ class ProjectManager
         }
 
         $this->em->flush();
+    }
+
+    /**
+     * Import the given project and include the commits if asked to (can be used to refresh an existing project too)
+     *
+     * @throws \Exception
+     */
+    public function importProject(SourceProjectInterface $project, $includeCommits = false)
+    {
+        if (!isset($this->connections[$project->getSourceConnectorIdentifier()])) {
+            throw new \Exception('There is no configurer connector for the given identifier : "' . $project->getSourceConnectorIdentifier() . '"');
+        } else {
+            $connect = $this->connections[$project->getSourceConnectorIdentifier()];
+        }
+
+        /* @var $connect \MB\DashboardBundle\Model\Connector\ConnectorInterface */
+
+        $rawProject = $connect->importProject($project);
+
+        // Get the source group, create if doesn't exists, fill/update and store
+        $sourceGroup = $this->sourceGroupRepo->findOneBy(array('sourceId' => $connect->getGroupId($rawProject), 'sourceConnectorIdentifier' => $connect->getName()));
+
+        if (!$sourceGroup) {
+            $sourceGroup = new SourceGroup();
+        }
+
+        $sourceGroup = $connect->fillGroup($sourceGroup, $rawProject);
+        $sourceGroup = $connect->fillGroup($sourceGroup, $rawProject);
+        $this->em->persist($sourceGroup);
+
+        $project = $this->projectRepo->findOneBy(array('sourceId' => $connect->getProjectId($rawProject), 'sourceConnectorIdentifier' => $connect->getName()));
+
+        if (!$project) {
+            $project = new Project();
+        }
+        $project = $connect->fillProject($project, $rawProject, $sourceGroup);
+        $this->em->persist($project);
+
+        $this->em->flush();
+
+        if ($includeCommits) {
+            $commits = $connect->importAllCommits($project);
+            foreach ($commits as $rawCommit) {
+                $commit = $this->commitRepo->findOneBy(array('sourceId' => $connect->getCommitId($rawCommit), 'project' => $project));
+                if (!$commit) {
+                    $commit = new Commit();
+                }
+                $commit = $connect->fillCommit($commit, $rawCommit, $project);
+                $this->em->persist($commit);
+            }
+            $this->em->flush();
+        }
     }
 }

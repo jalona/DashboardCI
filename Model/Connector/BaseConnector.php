@@ -174,6 +174,15 @@ abstract class BaseConnector implements ConnectorInterface
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importProject()
+     */
+    public function importProject(SourceProjectInterface $project)
+    {
+        throw new FunctionNotImplementedException('refreshProject');
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::addAuthentication()
      */
     public function addAuthentication()
