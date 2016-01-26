@@ -60,7 +60,11 @@ $manager = $this->get('mb_dashboard.project_manager');
 
 $project = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->find(1);
 
-$manager->refresh($project);
+/*
+ * Importing an existing project will only refresh it data.
+ * Adding "true" as second parameter will import/refresh commits too.
+ */
+$manager->importProject($project, true);
 ```
 
 As simple as this. You don't have to care which remote service is used or which url you should call. We do it ourself internally. Just use the functions provided by the ```MB\DashboardBundle\Model\Connector\IConnector``` interface and rock your dashboard !
