@@ -49,6 +49,15 @@ class GitlabConnector extends BaseConnector
 
     /**
      * (non-PHPdoc)
+     * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importProject()
+     */
+    public function importProject(SourceProjectInterface $project)
+    {
+        return json_decode($this->execute('/api/v3/projects/' . $project->getSourceId()));
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \MB\DashboardBundle\Model\Connector\ConnectorInterface::importAllCommits()
      */
     public function importAllCommits(SourceProjectInterface $project)
