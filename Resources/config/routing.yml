@@ -6,6 +6,18 @@ mb_dashboard_import:
     path:     /import/{projectId}
     defaults: { _controller: "MBDashboardBundle:Default:import", projectId: null }
 
-mb_dashboard_list:
+mb_dashboard_list_repositories:
     path:     /list
-    defaults: { _controller: "MBDashboardBundle:Default:list" }
+    defaults: { _controller: "MBDashboardBundle:Default:listRepositories" }
+
+mb_dashboard_list_groups:
+    path:     /groups
+    defaults: { _controller: "MBDashboardBundle:Default:listGroups" }
+
+mb_dashboard_list_group_repositories:
+    path:     /group/{groupId}/repositories
+    defaults: { _controller: "MBDashboardBundle:Default:listRepositories" }
+
+mb_dashboard_list_commits:
+    path:     /group/{groupId}/{projectId}/commits
+    defaults: { _controller: "MBDashboardBundle:Default:listCommits" }

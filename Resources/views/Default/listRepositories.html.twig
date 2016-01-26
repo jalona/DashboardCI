@@ -1,0 +1,27 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<a href="{{ path('mb_dashboard_list_groups') }}">back</a>
+		<table>
+			<thead>
+				<tr>
+					<th>Repository</th>
+					<th>External</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for project in projects %}
+					<tr>
+						<td>
+							<a href="{{ path('mb_dashboard_list_commits', {groupId: project.sourceGroup.id, projectId: project.id}) }}">{{ project.sourceTitle }}</a>
+						</td>
+						<td>
+							<a href="{{ project.sourceUrl }}" target="_blank">source</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>

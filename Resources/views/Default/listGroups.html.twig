@@ -1,0 +1,26 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th>Group</th>
+					<th>External</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for group in groups %}
+					<tr>
+						<td>
+							<a href="{{ path('mb_dashboard_list_group_repositories', {groupId: group.id}) }}">{{ group.title }}</a>
+						</td>
+						<td>
+							<a href="{{ group.url }}" target="_blank">source</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>
