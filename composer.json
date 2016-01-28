@@ -1,5 +1,5 @@
 {
-	"name":         "mb/dashboard-bundle",
+	"name":         "mb-webdev/dashboard-bundle",
 	"description":  "MBDashboardBundle is a Symfony 3 bundle to communicate with GitLab, GitLab-CI, Stash and Bamboo",
 	"keywords":     ["mb-webdev", "github", "gitlab", "stash", "gitlab-ci", "bamboo", "dashboard"],
 	"type":         "symfony-bundle",
