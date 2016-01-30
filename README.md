@@ -6,7 +6,8 @@ No, seriously. This is not even an alpha version, so please, wait.
 
 ---
 
-# MB/Dashboard
+# mb-webdev/DashboardCI
+## Dashboard Continuous Integration Bundle
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8bb5c589-f848-453f-b319-da61176da107/big.png)](https://insight.sensiolabs.com/projects/8bb5c589-f848-453f-b319-da61176da107)
 

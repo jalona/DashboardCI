@@ -1,0 +1,30 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Title</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for dashboard in dashboards %}
+					<tr>
+						<td>
+							{{ dashboard.id }}
+						</td>
+						<td>
+							{{ dashboard.title }}
+						</td>
+						<td>
+							<a href="{{ path('mb_dashboard_edit_dashboard', {dashboard: dashboard.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>

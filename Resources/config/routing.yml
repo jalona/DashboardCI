@@ -21,3 +21,19 @@ mb_dashboard_list_group_repositories:
 mb_dashboard_list_commits:
     path:     /group/{groupId}/{projectId}/commits
     defaults: { _controller: "MBDashboardBundle:Default:listCommits" }
+
+
+
+
+
+mb_dashboard_list_dashboards:
+    path:     /dashboards
+    defaults: { _controller: "MBDashboardBundle:Dashboard:list" }
+
+mb_dashboard_add_dashboard:
+    path:     /dashboard/add
+    defaults: { _controller: "MBDashboardBundle:Dashboard:add" }
+
+mb_dashboard_edit_dashboard:
+    path:     /dashboard/{dashboard}/edit
+    defaults: { _controller: "MBDashboardBundle:Dashboard:edit" }
