@@ -39,17 +39,43 @@ You can configure as much tool access as you want, allowing you to monitor some 
 Example :
 
 ```YML
+# config.yml
+
 mb_dashboard:
     connections:
 
         # code hosting
         my_gitlab:    { type: 'gitlab',   host: 'https://my-gitlab.com',   api_token: 'abcd1234' }
-        my_github:    { type: 'github',   host: 'https://api.github.com',  api_token: '1234abcd' }
+        my_github:    { type: 'github',   api_token: '1234abcd' }
         my_stash:     { type: 'stash',    host: 'https://my-stash.com'     api_username: 'my_username', api_password: 'my_password' }
 
         # continuous integration
         my_gitlab_ci: { type: 'gitlabci', host: 'https://my-gitlabci.com', api_token: '1a2b3c4d' }
         my_bamboo:    { type: 'bamboo',   host: 'https://my-bamboo.com',   api_username: 'my_username', api_password: 'my_password' }
+```
+
+But, for a better security, it's better to put your token, username, password or any private data into your ```parameters.yml``` file and refer to the key instead.
+
+Example :
+
+```YML
+# parameters.yml
+
+parameters:
+    database_host: ....
+    database_port: ....
+    ...
+    
+    github_token: 'abcd1234'
+
+```
+
+```YML
+# config.yml
+
+mb_dashboard:
+    connections:
+        my_github:    { type: 'github',   api_token: '%github_token%' }
 ```
 
 ### 2. API
@@ -70,7 +96,7 @@ $project = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->fin
 $manager->importProject($project, true);
 ```
 
-As simple as this. You don't have to care which remote service is used or which url you should call. We do it ourself internally. Just use the functions provided by the ```MB\DashboardBundle\Model\Connector\IConnector``` interface and rock your dashboard !
+As simple as this. You don't have to care which remote service is used or which url you should call. We do it ourself internally. Just use the functions provided by the ```MB\DashboardBundle\Manager\ProjectManager``` manager and rock your dashboard !
 
 ### 3. Hooks (coming soon)
 If you don't want the run a synchronizing task which will perform a lot of queries on the remote tools, you can configure hooks on these services to update the dashboard in live.
