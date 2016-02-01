@@ -62,10 +62,21 @@ class DashboardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $dashboards = $this->getDoctrine()->getRepository('MBDashboardBundle:Dashboard')->findAll();
+
+            foreach ($dashboards as $dash) {
+                if ($dash->getId() != $dashboard->getId()) {
+                    $dash->setHomepage(false);
+                    $em->persist($dash);
+                }
+            }
+
             $dashboard->setConfig($this->getFormConfig($form, $projects));
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($dashboard);
+
             $em->flush();
 
             return $this->redirectToRoute('mb_dashboard_list_dashboards');
@@ -84,19 +95,22 @@ class DashboardController extends Controller
         $form = $form->all();
         $config = array();
         foreach ($projects as $project) {
-            $key = 'project_' . $project->getId() . '_commits';
-            if (isset($form[$key]) && $form[$key]->getViewData()) {
-                $config = $this->storeFormConfig($config, $project, 'commits', true);
+            $key = 'project_' . $project->getId() . '_show';
+            if (isset($form[$key]) && $form[$key]->getViewData() !== null) {
+                if (!isset($config[$project->getId()])) {
+                    $config[$project->getId()] = array('id' => $project->getId());
+                }
+
+                $key = 'project_' . $project->getId() . '_commits';
+                if (isset($form[$key]) && $form[$key]->getViewData()) {
+                    $config[$project->getId()]['commits'] = true;
+                }
+                $key = 'project_' . $project->getId() . '_order';
+                if (isset($form[$key]) && $form[$key]->getViewData() !== null) {
+                    $config[$project->getId()]['order'] = intval($form[$key]->getViewData(), 10);
+                }
             }
         }
-        return $config;
-    }
-    protected function storeFormConfig($config, $project, $field, $value)
-    {
-        if (!isset($config[$project->getId()])) {
-            $config[$project->getId()] = array();
-        }
-        $config[$project->getId()][$field] = $value;
         return $config;
     }
 }

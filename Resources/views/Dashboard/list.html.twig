@@ -18,6 +18,7 @@
 						</td>
 						<td>
 							{{ dashboard.title }}
+							{% if dashboard.homepage %} (homepage) {% endif %}
 						</td>
 						<td>
 							<a href="{{ path('mb_dashboard_edit_dashboard', {dashboard: dashboard.id}) }}">edit</a>

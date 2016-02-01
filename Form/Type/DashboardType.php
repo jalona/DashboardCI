@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class DashboardType extends AbstractType
 {
@@ -21,15 +22,39 @@ class DashboardType extends AbstractType
             )
         ));
 
+        $builder->add('homepage', CheckboxType::class, array(
+            'label' => 'dashboard.homepage.label',
+            'required' => false
+        ));
+
         $projects = $options['projects'];
         $config = $options['config'];
 
         foreach ($projects as $project)
         {
             $checked = null;
+            $order = null;
+
             if (isset($config[$project->getId()]['commits'])) {
                 $checked = true;
             }
+            if (isset($config[$project->getId()]['order'])) {
+                $order = $config[$project->getId()]['order'];
+            }
+
+            $builder->add('project_' . $project->getId() . '_show', CheckboxType::class, array(
+                'label' => 'dashboard.project.show.label',
+                'required' => false,
+                'mapped' => false,
+                'data' => (isset($config[$project->getId()]) ? true : false)
+            ));
+
+            $builder->add('project_' . $project->getId() . '_order', NumberType::class, array(
+                'label' => 'dashboard.project.order.label',
+                'required' => false,
+                'mapped' => false,
+                'data' => $order
+            ));
             $builder->add('project_' . $project->getId() . '_commits', CheckboxType::class, array(
                 'label' => 'dashboard.project.commits.label',
                 'required' => false,

@@ -8,7 +8,28 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('MBDashboardBundle:Default:index.html.twig');
+        $dashboard = $this->getDoctrine()->getRepository('MBDashboardBundle:Dashboard')->findOneBy(array('homepage' => true));
+        if ($dashboard) {
+            $ids = array();
+            $config = $dashboard->getConfig();
+            usort($config, array($this, 'cmp'));
+            for ($i = 0; $i < count($config); $i++) {
+                $ids[$i] = $config[$i]['id'];
+            }
+            $projectList = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->findBy(array('id' => $ids));
+            $projects = array();
+            foreach ($ids as $id) {
+                foreach ($projectList as $project) {
+                    if ($project->getId() == $id) {
+                        $projects[] = $project;
+                    }
+                }
+            }
+        }
+        return $this->render('MBDashboardBundle:Default:dashboard.html.twig', array(
+            'dashboard' => $dashboard,
+            'projects' => $projects
+        ));
     }
 
     public function importAction($projectId = null)
@@ -68,5 +89,16 @@ class DefaultController extends Controller
         }
 
         return $this->render('MBDashboardBundle:Default:listCommits.html.twig', array('project' => $project));
+    }
+
+    private function cmp($a, $b)
+    {
+        if ($a['order'] < $b['order']) {
+            return -1;
+        } else if ($a['order'] == $b['order']) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }

@@ -4,10 +4,13 @@
 	<body>
 		{{ form_start(form) }}
 			{{ form_row(form.title) }}
+			{{ form_row(form.homepage) }}
 			<table>
 			<thead>
 				<tr>
 					<th>Project</th>
+					<th>Show</th>
+					<th>Order</th>
 					<th>Show commits</th>
 				</tr>
 			</thead>
@@ -16,6 +19,14 @@
 					<tr>
 						<td>
 							{{ project.sourceGroup.title }} / {{ project.sourceTitle }}
+						</td>
+						<td>
+							{% set key = 'project_' ~ project.id ~ '_show' %}
+							{{ form_widget(attribute(form, key)) }}
+						</td>
+						<td>
+							{% set key = 'project_' ~ project.id ~ '_order' %}
+							{{ form_widget(attribute(form, key)) }}
 						</td>
 						<td>
 							{% set key = 'project_' ~ project.id ~ '_commits' %}

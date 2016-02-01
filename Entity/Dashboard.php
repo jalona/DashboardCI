@@ -35,6 +35,13 @@ class Dashboard
      */
     private $config;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="homepage", type="boolean")
+     */
+    private $homepage = false;
+
 
     /**
      * Get id
@@ -93,5 +100,28 @@ class Dashboard
     {
         return $this->config;
     }
-}
 
+    /**
+     * Set homepage
+     *
+     * @param boolean $homepage
+     *
+     * @return Dashboard
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
+
+        return $this;
+    }
+
+    /**
+     * Get homepage
+     *
+     * @return boolean
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
+    }
+}

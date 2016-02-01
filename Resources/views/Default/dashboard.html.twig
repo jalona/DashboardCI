@@ -1,0 +1,20 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>{{ dashboard.title }}</h1>
+		
+		{% for project in projects %}
+			<div>
+				<a href="{{ path('mb_dashboard_list_group_repositories', {groupId: project.sourceGroup.id}) }}">{{ project.sourceGroup.title }}</a>
+				/
+				<a href="{{ path('mb_dashboard_list_commits', {groupId: project.sourceGroup.id, projectId: project.id}) }}">{{ project.sourceTitle }}</a>
+				
+				{% if dashboard.config[project.id].commits is defined and dashboard.config[project.id].commits %}
+					{% set commit = project.commits|last %}
+					({{ project.commits|length }} commits. Last commit : {{ commit.hash }})
+				{% endif %}
+			</div>
+		{% endfor %}
+	</body>
+</html>
