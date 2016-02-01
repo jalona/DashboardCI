@@ -13,7 +13,8 @@ class DefaultController extends Controller
             $ids = array();
             $config = $dashboard->getConfig();
             usort($config, array($this, 'cmp'));
-            for ($i = 0; $i < count($config); $i++) {
+            $length = count($config);
+            for ($i = 0; $i < $length; $i++) {
                 $ids[$i] = $config[$i]['id'];
             }
             $projectList = $this->getDoctrine()->getRepository('MBDashboardBundle:Project')->findBy(array('id' => $ids));
