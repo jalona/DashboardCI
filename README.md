@@ -13,6 +13,7 @@ No, seriously. This is not even an alpha version, so please, wait.
 
 [![Build Status](https://travis-ci.org/mb-webdev/DashboardCI.svg?branch=master)](https://travis-ci.org/mb-webdev/DashboardCI)
 [![Latest Stable Version](https://poser.pugx.org/mb-webdev/dashboard-bundle/v/stable)](https://packagist.org/packages/mb-webdev/dashboard-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/mb-webdev/dashboard-bundle/v/unstable)](https://packagist.org/packages/mb-webdev/dashboard-bundle)
 [![License](https://poser.pugx.org/mb-webdev/dashboard-bundle/license)](https://packagist.org/packages/mb-webdev/dashboard-bundle)
 
 ## Introduction
