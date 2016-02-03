@@ -1,0 +1,15 @@
+0.1.0
+- Dashboard
+- Listing pages
+- [github] Add importProject function
+- [gitlab] Add importProject function
+- [stash] Add importProject function
+- [gitlab] Import all commits
+- [github] Import all commits
+- [stash] Import all commits
+- [gitlab] Import all repositories
+- [github] Import all repositories
+- [stash] Import all repositories
+- [gitlab] Import all groups
+- [github] Import all groups
+- [sash] Import all groups
